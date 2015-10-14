@@ -1,0 +1,11 @@
+<resources>
+    <string name = "app_name">AspectJExample</string>
+
+    <string name = "hello_world">Привет, мир!</string>
+    <string name = "running">Рабочий язык — </string>
+    <string name = "action_settings">Настройки</string>
+    <string name = "first_btn">Кнопка 1</string>
+    <string name = "second_btn">Кнопка 2</string>
+    <string name = "third_btn">Кнопка 3</string>
+    <string name = "something_happend">Что-то нажали!</string>
+</resources>

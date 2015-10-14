@@ -1,0 +1,11 @@
+<resources>
+    <string name = "app_name">AspectJExample</string>
+
+    <string name = "hello_world">Hello world!</string>
+    <string name = "running">I\'m running </string>
+    <string name = "action_settings">Settings</string>
+    <string name = "first_btn">Button 1</string>
+    <string name = "second_btn">Button 2</string>
+    <string name = "third_btn">Button 3</string>
+    <string name = "something_happend">Something clicked!</string>
+</resources>
