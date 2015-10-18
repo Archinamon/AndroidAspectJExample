@@ -1,17 +1,40 @@
 package com.archinamon.example.xpoint;
 
 import android.app.AlarmManager;
+import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import com.archinamon.example.MyApplication;
 import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
+import static com.archinamon.example.BuildConfig.APPLICATION_ID;
 
 /**
  * Created by Archinamon on 10/6/15.
  */
 aspect LocaleMonitor {
+
+    /* inter-type declaration
+       injecting instance-field and getter/setter methods into MyApplication class */
+
+    private static Application MyApplication.sInstance;
+
+    // method declared as package-local
+    // only aspect classes within package .xpoint will have access to these methods
+    static void MyApplication.setInstance(@NonNull Application inst) {
+        sInstance = inst;
+    }
+
+    static Application MyApplication.getInstance() {
+        return sInstance;
+    }
+
+    /* end of inter-type declaration */
 
     private static final String LANG_RAW_KEY = "aj_lang_val";
 
@@ -20,23 +43,22 @@ aspect LocaleMonitor {
 
     after(): saveLocale() {
         final MyApplication app = (MyApplication) thisJoinPoint.getThis();
-        saveCurrentLocale(app);
+        MyApplication.setInstance(app);
+        saveCurrentLocale();
     }
 
-    before(AppCompatActivity activity): checkLocale(activity) {
-        if (isLocaleChanged(activity)) {
-            final MyApplication app = (MyApplication) activity.getApplication();
-            saveCurrentLocale(app);
+    after(AppCompatActivity activity): checkLocale(activity) {
+        if (isLocaleChanged()) {
+            saveCurrentLocale();
             restartApplication(activity);
         }
     }
 
-    void saveCurrentLocale(final MyApplication app) {
-        app.getPreferences()
-           .edit()
-           .putString(LANG_RAW_KEY, Locale.getDefault().toString())
-           .putString(MyApplication.LANG_KEY, Locale.getDefault().getDisplayLanguage())
-           .apply();
+    void saveCurrentLocale() {
+        getPreferences().edit()
+                        .putString(LANG_RAW_KEY, Locale.getDefault().toString())
+                        .putString(MyApplication.LANG_KEY, Locale.getDefault().getDisplayLanguage())
+                        .apply();
     }
 
     void restartApplication(AppCompatActivity context) {
@@ -49,11 +71,15 @@ aspect LocaleMonitor {
         context.finish();
     }
 
-    boolean isLocaleChanged(AppCompatActivity context) {
-        final MyApplication app = (MyApplication) context.getApplication();
-        final String savedLocale = app.getPreferences().getString(LANG_RAW_KEY, "");
+    boolean isLocaleChanged() {
+        final String savedLocale = getPreferences().getString(LANG_RAW_KEY, "");
         final String currentLocale = Locale.getDefault().toString();
 
         return !currentLocale.equalsIgnoreCase(savedLocale);
+    }
+
+    private SharedPreferences getPreferences() {
+        return MyApplication.getInstance()
+                            .getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
     }
 }

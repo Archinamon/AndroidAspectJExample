@@ -6,6 +6,7 @@ import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.TextView;
 import com.archinamon.example.MainActivity;
+import com.archinamon.example.R;
 
 /**
  * Created by Archinamon on 10/6/15.
@@ -22,7 +23,8 @@ aspect EventRepeater {
 
         NotificationManager nm = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.notify(sMagic++ << 1,
-                  new NotificationCompat.Builder(ctx).setContentTitle("Something happend!")
+                  new NotificationCompat.Builder(ctx).setSmallIcon(R.mipmap.ic_launcher)
+                                                     .setContentTitle("Something happend!")
                                                      .setContentText(argument.getText() + " clicked!")
                                                      .build());
     }
