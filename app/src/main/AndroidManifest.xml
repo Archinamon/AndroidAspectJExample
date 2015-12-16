@@ -10,7 +10,7 @@
             android:theme = "@style/AppTheme">
 
         <activity
-                android:name = "com.archinamon.example.MainActivity"
+                android:name = "com.archinamon.example.MainActivity_"
                 android:label = "@string/app_name">
 
             <intent-filter>

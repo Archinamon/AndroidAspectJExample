@@ -7,8 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.androidannotations.annotations.EActivity;
 import java.util.Locale;
 
+@EActivity
 public class MainActivity extends AppCompatActivity {
 
     private TextView mHelloField;
