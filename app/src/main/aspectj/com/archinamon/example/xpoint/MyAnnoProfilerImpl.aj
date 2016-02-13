@@ -20,61 +20,61 @@ public aspect MyAnnoProfilerImpl extends AnnoProfiler {
 
     /* PROFILE ANNOTATED METHOD CALL */
 
-    before(ProfileCall pc): strict() && Profiler.profileTargetCall(pc) {
+    before(ProfileCall pc): strict() && AnnoProfiler.profileTargetCall(pc) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileCall pc): strict() && Profiler.profileTargetCall(pc) {
+    after(ProfileCall pc): strict() && AnnoProfiler.profileTargetCall(pc) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED METHOD'S BODY EXECUTION */
 
-    before(ProfileExecution pe): strict() && Profiler.profileTargetExecution(pe) {
+    before(ProfileExecution pe): strict() && AnnoProfiler.profileTargetExecution(pe) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileExecution pe): strict() && Profiler.profileTargetExecution(pe) {
+    after(ProfileExecution pe): strict() && AnnoProfiler.profileTargetExecution(pe) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' STATIC METHODS EXECUTION */
 
-    before(ProfileClass pc): strict() && Profiler.profileTargetClass(pc) {
+    before(ProfileClass pc): strict() && AnnoProfiler.profileTargetClass(pc) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileClass pc): strict() && Profiler.profileTargetClass(pc) {
+    after(ProfileClass pc): strict() && AnnoProfiler.profileTargetClass(pc) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' INSTANCE METHODS EXECUTION */
 
-    before(ProfileInstance pi): strict() && Profiler.profileTargetInstance(pi) {
+    before(ProfileInstance pi): strict() && AnnoProfiler.profileTargetInstance(pi) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileInstance pi): strict() && Profiler.profileTargetInstance(pi) {
+    after(ProfileInstance pi): strict() && AnnoProfiler.profileTargetInstance(pi) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' CONSTRUCTORS, SUPER-CALLS AND DYNAMIC BLOCKS */
 
-    before(ProfileDynamic dp): strict() && Profiler.profileTargetDynamic(dp) {
+    before(ProfileDynamic dp): strict() && AnnoProfiler.profileTargetDynamic(dp) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileDynamic dp): strict() && Profiler.profileTargetDynamic(dp) {
+    after(ProfileDynamic dp): strict() && AnnoProfiler.profileTargetDynamic(dp) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' STATIC BLOCKS */
 
-    before(ProfileStatic ps): strict() && Profiler.profileTargetStatic(ps) {
+    before(ProfileStatic ps): strict() && AnnoProfiler.profileTargetStatic(ps) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileStatic ps): strict() && Profiler.profileTargetStatic(ps) {
+    after(ProfileStatic ps): strict() && AnnoProfiler.profileTargetStatic(ps) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
@@ -82,17 +82,17 @@ public aspect MyAnnoProfilerImpl extends AnnoProfiler {
         SUCH CLASS SHOULD BE ANNOTATED AS @ProfileClass or @ProfileInstance
         THAT DEPENDS ON WHAT KIND OF FIELD YOU WANNA PROFILE */
 
-    before(ProfileField pf): strict() && Profiler.profileTargetField(pf) {
+    before(ProfileField pf): strict() && AnnoProfiler.profileTargetField(pf) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileField pf): strict() && Profiler.profileTargetField(pf) {
+    after(ProfileField pf): strict() && AnnoProfiler.profileTargetField(pf) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' OR SEPARATELY MARKED METHODS WITH ERROR HANDLER */
 
-    Object around(ProfileErrors pe): strict() && Profiler.profileTargetErrors(pe) {
+    Object around(ProfileErrors pe): strict() && AnnoProfiler.profileTargetErrors(pe) {
         try {
             writeEnterTime(thisJoinPointStaticPart);
             Object o = proceed(pe);
@@ -103,6 +103,8 @@ public aspect MyAnnoProfilerImpl extends AnnoProfiler {
             if (AnnoProfiler.checkErrorClausing(all, pe))
                 writeException(thisJoinPointStaticPart, all);
             removeEnterTime(thisJoinPointStaticPart);
+
+            return null;
         }
     }
 }

@@ -28,21 +28,21 @@ abstract aspect AnnoProfiler {
     declare precedence: Profiler+, *;
 
     // collect joinpoints only if defined annotations on object type is set
-    private pointcut fieldOwner(): (within(@ProfileInstance*) || within(@ProfileClass*));
+    private pointcut fieldOwner(): (within(@ProfileInstance *) || within(@ProfileClass *));
 
     // warn if profiled field breaks encapsulation
     private pointcut setFieldWarn(): @annotation(ProfileField) && set(!public * *) && !withincode(* set*(..));
     declare warning: withoutMe() && fieldOwner() && setFieldWarn()
             : "[AOP:Warning!] => writing field outside the setter";
 
-    private pointcut getFieldWarn(): @annotation(ProfileField) && get(!public * *) && !withincode(* get*(..))
-            declare warning: withoutMe() && fieldOwner() && getFieldWarn()
+    private pointcut getFieldWarn(): @annotation(ProfileField) && get(!public * *) && !withincode(* get*(..));
+    declare warning: withoutMe() && fieldOwner() && getFieldWarn()
             : "[AOP:Warning!] => reading field outside the getter";
 
     protected final pointcut profileTargetCall(ProfileCall pc): call(* *(..)) && @annotation(pc);
     protected final pointcut profileTargetExecution(ProfileExecution pe): execution(* *(..)) && @annotation(pe);
 
-    protected final pointcut profileTargetErrors(ProfileErrors pe): @annotation(pe) && execution(* *(..));
+    protected final pointcut profileTargetErrors(ProfileErrors pe): @annotation(pe) && (execution(* *(..)) || execution(* *(..) throws *));
 
     protected final pointcut profileTargetClass(ProfileClass pc): @within(pc) && execution(static * *(..));
     protected final pointcut profileTargetInstance(ProfileInstance pi): @within(pi) && execution(!static * *(..));
