@@ -7,7 +7,7 @@ buildscript {
         //APT
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         //AspectJ
-        classpath 'com.archinamon:AspectJ-gradle:1.1.1'
+        classpath 'com.archinamon:AspectJ-gradle:1.1.2'
     }
 }
 
