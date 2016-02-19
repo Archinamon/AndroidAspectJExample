@@ -15,3 +15,23 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-adaptclassstrings
+-keepattributes InnerClasses, EnclosingMethod, Signature, *Annotation*
+-optimizationpasses 5
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-dontpreverify
+-verbose
+-printseeds
+-allowaccessmodification
+
+#Escape lambda erasures
+-keep class *$Lambda* { <methods>; }
+-keepclassmembernames public class * {
+    *** lambda*(...);
+}
+
+#Preserve aspects
+-keepnames @org.aspectj.lang.annotation.Aspect class * {
+    ajc* <methods>;
+}

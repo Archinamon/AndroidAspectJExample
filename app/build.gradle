@@ -14,6 +14,7 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'com.archinamon.aspectj'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'groovyx.grooid.groovy-android'
 
 android {
     compileSdkVersion 23
@@ -34,6 +35,13 @@ android {
     }
 }
 
+project.androidGroovy {
+    options {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
 aspectj {
     weaveInfo true
     addSerialVersionUID true
@@ -50,6 +58,8 @@ def AAVersion = '3.3' as String
 dependencies {
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
+
+    compile 'org.codehaus.groovy:groovy:2.4.5:grooid'
 
 //    apt 'com.squareup.dagger:dagger-compiler:1.2.1'
 //    compile 'com.squareup.dagger:dagger:1.2.1'
