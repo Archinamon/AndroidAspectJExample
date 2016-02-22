@@ -1,4 +1,4 @@
-package com.archinamon.example.xpoint;
+package com.archinamon.xpoint;
 
 /**
  * Created by Archinamon on 10/18/15.

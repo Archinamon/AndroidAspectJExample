@@ -1,4 +1,4 @@
-package com.archinamon.example.xpoint;
+package com.archinamon.xpoint;
 
 import android.app.AlarmManager;
 import android.app.Application;

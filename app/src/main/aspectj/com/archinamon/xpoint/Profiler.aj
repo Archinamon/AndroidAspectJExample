@@ -1,4 +1,4 @@
-package com.archinamon.example.xpoint;
+package com.archinamon.xpoint;
 
 import org.aspectj.lang.JoinPoint;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.archinamon.example.xpoint;
+package com.archinamon.xpoint;
 
 import android.app.NotificationManager;
 import android.content.Context;

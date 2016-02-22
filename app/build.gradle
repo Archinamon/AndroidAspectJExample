@@ -4,6 +4,7 @@ buildscript {
         maven { url 'https://raw.github.com/Archinamon/GradleAspectJ-Android/master' }
     }
     dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         //APT
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         //AspectJ
@@ -12,9 +13,10 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'com.archinamon.aspectj'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'groovyx.grooid.groovy-android'
+apply plugin: 'com.archinamon.aspectj'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 23
@@ -33,18 +35,31 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
-project.androidGroovy {
-    options {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 aspectj {
+    binaryWeave true
+//    excludeBuildPath true
+//    binaryWeaveRoots << "com.archinamon.grooid"
     weaveInfo true
     addSerialVersionUID true
+}
+
+retrolambda {
+    jdk getJavaVersion(8);
+    oldJdk getJavaVersion(7);
+    javaVersion JavaVersion.VERSION_1_7
+    defaultMethods false
+}
+
+androidGroovy {
+    sourceCompatibility = '1.7'
+    targetCompatibility = '1.7'
 }
 
 apt {
@@ -71,4 +86,38 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
 
     compile 'com.squareup.picasso:picasso:2.1.1'
+}
+
+def String getJavaVersion(Integer v) {
+    def sout;
+    def proc;
+
+    switch (org.gradle.internal.os.OperatingSystem.current()) {
+        case org.gradle.internal.os.OperatingSystem.MAC_OS:
+            proc = "/usr/libexec/java_home -v 1.$v".execute();
+            break;
+        case org.gradle.internal.os.OperatingSystem.LINUX:
+//            proc = "update-java-alternatives -l | awk '{ print \$3 }' | grep 1.$v".execute();
+//            break;
+        case org.gradle.internal.os.OperatingSystem.WINDOWS:
+        default:
+            def final localJavaEnvPath = "JAVA${v}_HOME";
+            def final lTCenvJavaPath = ["7":System.getenv(isTCBuild() ? "JDK_17" : localJavaEnvPath),
+                                        "8":System.getenv(isTCBuild() ? "JDK_18" : localJavaEnvPath)];
+
+            return lTCenvJavaPath."$v";
+    }
+
+    if (proc) {
+        sout = new StringBuffer();
+        proc.consumeProcessOutput(sout, new StringBuffer());
+        proc.waitForOrKill(1000);
+        return sout.toString().replace("\n", "").replace("\r", "");
+    }
+
+    return "";
+}
+
+def isTCBuild() {
+    return project.properties.containsKey('teamcity');
 }

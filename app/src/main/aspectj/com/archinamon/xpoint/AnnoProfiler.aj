@@ -1,4 +1,4 @@
-package com.archinamon.example.xpoint;
+package com.archinamon.xpoint;
 
 import com.archinamon.example.profiler.ProfileCall;
 import com.archinamon.example.profiler.ProfileClass;
@@ -25,7 +25,7 @@ abstract aspect AnnoProfiler {
 
     // this line declares execution order according to advice execution rules
     // this aspect should run over all others
-    declare precedence: Profiler+, *;
+    declare precedence: AnnoProfiler+, *;
 
     // collect joinpoints only if defined annotations on object type is set
     private pointcut fieldOwner(): (within(@ProfileInstance *) || within(@ProfileClass *));
