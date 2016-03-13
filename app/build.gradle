@@ -69,6 +69,10 @@ apt {
     }
 }
 
+repositories {
+    maven { url 'http://repo.spring.io/snapshot/' }
+}
+
 def AAVersion = '3.3' as String
 dependencies {
     apt "org.androidannotations:androidannotations:$AAVersion"
