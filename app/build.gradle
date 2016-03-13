@@ -1,14 +1,15 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url 'https://raw.github.com/Archinamon/GradleAspectJ-Android/master' }
+        maven { url 'http://repo.spring.io/snapshot/' }
+        maven { url 'https://raw.github.com/Archinamon/GradleAspectJ-Android/dev' }
     }
     dependencies {
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         //APT
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         //AspectJ
-        classpath 'com.archinamon:AspectJ-gradle:1.1.2'
+        classpath 'com.archinamon:AspectJ-gradle:1.1.3'
     }
 }
 
