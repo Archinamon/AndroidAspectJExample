@@ -8,7 +8,7 @@ buildscript {
         //APT
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         //AspectJ
-        classpath 'com.archinamon:AspectJ-gradle:1.1.2'
+        classpath 'com.archinamon:AspectJ-gradle:1.2.0'
     }
 }
 
@@ -44,8 +44,7 @@ android {
 
 aspectj {
     binaryWeave true
-//    excludeBuildPath true
-//    binaryWeaveRoots << "com.archinamon.grooid"
+    binaryExclude "com.archinamon.xpoint"
     weaveInfo true
     addSerialVersionUID true
 }
