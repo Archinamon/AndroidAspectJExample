@@ -20,9 +20,6 @@ import static java.lang.System.out;
  */
 abstract aspect AnnoProfiler {
 
-    abstract protected pointcut strict();
-    protected final pointcut withoutMe(): !within(*.xpoint.*);
-
     // this line declares execution order according to advice execution rules
     // this aspect should run over all others
     declare precedence: AnnoProfiler+, *;
@@ -32,11 +29,11 @@ abstract aspect AnnoProfiler {
 
     // warn if profiled field breaks encapsulation
     private pointcut setFieldWarn(): @annotation(ProfileField) && set(!public * *) && !withincode(* set*(..));
-    declare warning: withoutMe() && fieldOwner() && setFieldWarn()
+    declare warning: fieldOwner() && setFieldWarn()
             : "[AOP:Warning!] => writing field outside the setter";
 
     private pointcut getFieldWarn(): @annotation(ProfileField) && get(!public * *) && !withincode(* get*(..));
-    declare warning: withoutMe() && fieldOwner() && getFieldWarn()
+    declare warning: fieldOwner() && getFieldWarn()
             : "[AOP:Warning!] => reading field outside the getter";
 
     protected final pointcut profileTargetCall(ProfileCall pc): call(* *(..)) && @annotation(pc);

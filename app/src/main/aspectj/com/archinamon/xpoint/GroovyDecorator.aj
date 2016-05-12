@@ -10,7 +10,7 @@ privileged aspect GroovyDecorator {
 
     String MyApplication.mGroovyTestStr = "autoru_abcTest";
 
-    pointcut groovyTest(): within(Example) && get(* Example.abc);
+    pointcut groovyTestAccessToField(): within(Example) && get(* Example.abc);
 
     pointcut injectGroovy(): within(MyApplication) && execution(* *.onCreate(..));
 
@@ -20,12 +20,12 @@ privileged aspect GroovyDecorator {
         Example.main();
     }
 
-    before(): groovyTest() {
+    before(): groovyTestAccessToField() {
         Example.setAbc("1234567890");
         Example.main();
     }
 
-    after() returning(String value): groovyTest() {
+    after() returning(String value): groovyTestAccessToField() {
         Example.abc = value.charAt(5);
         Example.main();
     }
