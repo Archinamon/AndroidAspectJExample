@@ -16,61 +16,61 @@ public aspect MyAnnoProfilerImpl extends AnnoProfiler {
 
     /* PROFILE ANNOTATED METHOD CALL */
 
-    before(ProfileCall pc): com.archinamon.xpoint.AnnoProfiler.profileTargetCall(pc) {
+    before(ProfileCall pc): AnnoProfiler.profileTargetCall(pc) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileCall pc): com.archinamon.xpoint.AnnoProfiler.profileTargetCall(pc) {
+    after(ProfileCall pc): AnnoProfiler.profileTargetCall(pc) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED METHOD'S BODY EXECUTION */
 
-    before(ProfileExecution pe): com.archinamon.xpoint.AnnoProfiler.profileTargetExecution(pe) {
+    before(ProfileExecution pe): AnnoProfiler.profileTargetExecution(pe) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileExecution pe): com.archinamon.xpoint.AnnoProfiler.profileTargetExecution(pe) {
+    after(ProfileExecution pe): AnnoProfiler.profileTargetExecution(pe) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' STATIC METHODS EXECUTION */
 
-    before(ProfileClass pc): com.archinamon.xpoint.AnnoProfiler.profileTargetClass(pc) {
+    before(ProfileClass pc): AnnoProfiler.profileTargetClass(pc) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileClass pc): com.archinamon.xpoint.AnnoProfiler.profileTargetClass(pc) {
+    after(ProfileClass pc): AnnoProfiler.profileTargetClass(pc) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' INSTANCE METHODS EXECUTION */
 
-    before(ProfileInstance pi): com.archinamon.xpoint.AnnoProfiler.profileTargetInstance(pi) {
+    before(ProfileInstance pi): AnnoProfiler.profileTargetInstance(pi) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileInstance pi): com.archinamon.xpoint.AnnoProfiler.profileTargetInstance(pi) {
+    after(ProfileInstance pi): AnnoProfiler.profileTargetInstance(pi) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' CONSTRUCTORS, SUPER-CALLS AND DYNAMIC BLOCKS */
 
-    before(ProfileDynamic dp): com.archinamon.xpoint.AnnoProfiler.profileTargetDynamic(dp) {
+    before(ProfileDynamic dp): AnnoProfiler.profileTargetDynamic(dp) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileDynamic dp): com.archinamon.xpoint.AnnoProfiler.profileTargetDynamic(dp) {
+    after(ProfileDynamic dp): AnnoProfiler.profileTargetDynamic(dp) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' STATIC BLOCKS */
 
-    before(ProfileStatic ps): com.archinamon.xpoint.AnnoProfiler.profileTargetStatic(ps) {
+    before(ProfileStatic ps): AnnoProfiler.profileTargetStatic(ps) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileStatic ps): com.archinamon.xpoint.AnnoProfiler.profileTargetStatic(ps) {
+    after(ProfileStatic ps): AnnoProfiler.profileTargetStatic(ps) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
@@ -78,17 +78,17 @@ public aspect MyAnnoProfilerImpl extends AnnoProfiler {
         SUCH CLASS SHOULD BE ANNOTATED AS @ProfileClass or @ProfileInstance
         THAT DEPENDS ON WHAT KIND OF FIELD YOU WANNA PROFILE */
 
-    before(ProfileField pf): com.archinamon.xpoint.AnnoProfiler.profileTargetField(pf) {
+    before(ProfileField pf): AnnoProfiler.profileTargetField(pf) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileField pf): com.archinamon.xpoint.AnnoProfiler.profileTargetField(pf) {
+    after(ProfileField pf): AnnoProfiler.profileTargetField(pf) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' OR SEPARATELY MARKED METHODS WITH ERROR HANDLER */
 
-    Object around(ProfileErrors pe): com.archinamon.xpoint.AnnoProfiler.profileTargetErrors(pe) {
+    Object around(ProfileErrors pe): AnnoProfiler.profileTargetErrors(pe) {
         try {
             writeEnterTime(thisJoinPointStaticPart);
             Object o = proceed(pe);

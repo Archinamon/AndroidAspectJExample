@@ -1,14 +1,17 @@
 buildscript {
+    ext.kotlin_version = '1.0.4'
+
     repositories {
         mavenCentral()
-        maven { url 'https://raw.github.com/Archinamon/GradleAspectJ-Android/master' }
+        maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath 'com.github.Archinamon:GradleAspectJ-Android:2.2.2'
+        classpath 'me.tatarka:gradle-retrolambda:3.3.1'
         //APT
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
-        //AspectJ
-        classpath 'com.archinamon:android-gradle-aspectj:1.3.1'
+        //Kotlin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -17,45 +20,15 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'groovyx.grooid.groovy-android'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.archinamon.aspectj'
-
-android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.2'
-
-    defaultConfig {
-        applicationId "com.archinamon.example"
-        minSdkVersion 15
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 aspectj {
-    binaryWeave true
-    weaveTests false
-    exclude "com.archinamon.xpoint"
-    weaveInfo true
-    addSerialVersionUID true
-    ignoreErrors true
+    debugInfo !isTCBuild()
 }
 
 retrolambda {
-    jdk getJavaVersion(8);
-    oldJdk getJavaVersion(7);
-    javaVersion JavaVersion.VERSION_1_7
-    defaultMethods false
+    defaultMethods true
 }
 
 androidGroovy {
@@ -70,55 +43,59 @@ apt {
     }
 }
 
+android {
+    compileSdkVersion 25
+    buildToolsVersion '23.0.3'
+
+    defaultConfig {
+        applicationId "com.archinamon.example"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
 def AAVersion = '3.3' as String
 dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
 
     compile 'org.codehaus.groovy:groovy:2.4.5:grooid'
 
-//    apt 'com.squareup.dagger:dagger-compiler:1.2.1'
-//    compile 'com.squareup.dagger:dagger:1.2.1'
-    apt 'com.google.dagger:dagger-compiler:2.0'
-    compile 'com.google.dagger:dagger:2.0'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.1'
 
+
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.1'
+    compile 'com.google.dagger:dagger:2.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.squareup.picasso:picasso:2.1.1'
-
+    compile 'com.android.support:design:25.0.0'
     testCompile 'junit:junit:4.12'
-}
-
-def String getJavaVersion(Integer v) {
-    def sout;
-    def proc;
-
-    switch (org.gradle.internal.os.OperatingSystem.current()) {
-        case org.gradle.internal.os.OperatingSystem.MAC_OS:
-            proc = "/usr/libexec/java_home -v 1.$v".execute();
-            break;
-        case org.gradle.internal.os.OperatingSystem.LINUX:
-//            proc = "update-java-alternatives -l | awk '{ print \$3 }' | grep 1.$v".execute();
-//            break;
-        case org.gradle.internal.os.OperatingSystem.WINDOWS:
-        default:
-            def final localJavaEnvPath = "JAVA${v}_HOME";
-            def final lTCenvJavaPath = ["7":System.getenv(isTCBuild() ? "JDK_17" : localJavaEnvPath),
-                                        "8":System.getenv(isTCBuild() ? "JDK_18" : localJavaEnvPath)];
-
-            return lTCenvJavaPath."$v";
-    }
-
-    if (proc) {
-        sout = new StringBuffer();
-        proc.consumeProcessOutput(sout, new StringBuffer());
-        proc.waitForOrKill(1000);
-        return sout.toString().replace("\n", "").replace("\r", "");
-    }
-
-    return "";
+    apt 'com.google.dagger:dagger-compiler:2.0'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
 }
 
 def isTCBuild() {

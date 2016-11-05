@@ -54,14 +54,14 @@ aspect LocaleMonitor {
         }
     }
 
-    void saveCurrentLocale() {
+    private void saveCurrentLocale() {
         getPreferences().edit()
-                        .putString(LANG_RAW_KEY, Locale.getDefault().toString())
-                        .putString(MyApplication.LANG_KEY, Locale.getDefault().getDisplayLanguage())
-                        .apply();
+            .putString(LANG_RAW_KEY, Locale.getDefault().toString())
+            .putString(MyApplication.LANG_KEY, Locale.getDefault().getDisplayLanguage())
+            .apply();
     }
 
-    void restartApplication(AppCompatActivity context) {
+    private void restartApplication(AppCompatActivity context) {
         Intent i = new Intent(context, context.getClass());
         PendingIntent launch = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_ONE_SHOT);
 
@@ -71,7 +71,7 @@ aspect LocaleMonitor {
         context.finish();
     }
 
-    boolean isLocaleChanged() {
+    private boolean isLocaleChanged() {
         final String savedLocale = getPreferences().getString(LANG_RAW_KEY, "");
         final String currentLocale = Locale.getDefault().toString();
 
@@ -80,6 +80,6 @@ aspect LocaleMonitor {
 
     private SharedPreferences getPreferences() {
         return MyApplication.getInstance()
-                            .getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
+            .getSharedPreferences(APPLICATION_ID, MODE_PRIVATE);
     }
 }
