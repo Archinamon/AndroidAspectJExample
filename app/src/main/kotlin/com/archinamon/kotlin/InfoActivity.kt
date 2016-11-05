@@ -18,13 +18,13 @@ class InfoActivity : AppCompatActivity() {
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        val fab = findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener({ view ->
+        val fab = findViewById(R.id.fab)
+        fab?.setOnClickListener { view ->
             val uri = "mailto:archinamon@gmail.com" +
                 "?subject=" + Uri.encode("Example project feedback")
             val intent = Intent(Intent.ACTION_SENDTO).setData(Uri.parse(uri))
             startActivity(Intent.createChooser(intent, "Send email feedback"))
-        })
+        }
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
