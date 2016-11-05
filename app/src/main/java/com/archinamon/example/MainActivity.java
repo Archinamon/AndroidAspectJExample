@@ -1,5 +1,6 @@
 package com.archinamon.example;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.archinamon.grooid.Example;
+import com.archinamon.kotlin.InfoActivity;
+import com.archinamon.kotlin.ToastHelperKt;
 import org.androidannotations.annotations.EActivity;
 import java.util.Locale;
 
@@ -63,18 +67,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onFirstButtonClicked(View view) {
-        toast();
+        toastFromJava();
     }
 
     public void onSecondButtonClicked(View view) {
-        toast();
+        toastFromGroovy();
     }
 
     public void onThirdButtonClicked(View view) {
-        toast();
+        startActivity(new Intent(this, InfoActivity.class));
+        toastFromKotlin();
     }
 
-    private void toast() {
-        Toast.makeText(this, getString(R.string.something_happend), Toast.LENGTH_LONG).show();
+    private void toastFromJava() {
+        Toast.makeText(this, getString(R.string.something_happend_java), Toast.LENGTH_LONG).show();
+    }
+
+    private void toastFromGroovy() {
+        Example.sendToast(this);
+    }
+
+    private void toastFromKotlin() {
+        ToastHelperKt.sendToast(this);
     }
 }

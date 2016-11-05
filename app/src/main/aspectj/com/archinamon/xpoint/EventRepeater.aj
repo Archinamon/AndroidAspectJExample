@@ -23,9 +23,11 @@ aspect EventRepeater {
 
         NotificationManager nm = (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.notify(sMagic++ << 1,
-                  new NotificationCompat.Builder(ctx).setSmallIcon(R.mipmap.ic_launcher)
-                                                     .setContentTitle("Something happend!")
-                                                     .setContentText(argument.getText() + " clicked!")
-                                                     .build());
+                  new NotificationCompat.Builder(ctx)
+                      .setSmallIcon(R.mipmap.ic_launcher)
+                      .setContentTitle("Something happend!")
+                      .setContentText(argument.getText() + " clicked!")
+                      .build()
+        );
     }
 }

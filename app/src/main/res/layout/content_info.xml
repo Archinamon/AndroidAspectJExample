@@ -13,4 +13,10 @@
     tools:context="com.archinamon.kotlin.InfoActivity"
     tools:showIn="@layout/activity_info">
 
+    <TextView
+        android:text="@string/plugin_readme"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>

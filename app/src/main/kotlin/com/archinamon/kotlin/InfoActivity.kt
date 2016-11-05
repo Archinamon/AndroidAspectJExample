@@ -7,7 +7,9 @@ import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.archinamon.example.R
+import com.archinamon.example.profiler.ProfileDynamic
 
+@ProfileDynamic
 class InfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +23,7 @@ class InfoActivity : AppCompatActivity() {
             val uri = "mailto:archinamon@gmail.com" +
                 "?subject=" + Uri.encode("Example project feedback")
             val intent = Intent(Intent.ACTION_SENDTO).setData(Uri.parse(uri))
-            Intent.createChooser(intent, "Send email feedback")
+            startActivity(Intent.createChooser(intent, "Send email feedback"))
         })
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
