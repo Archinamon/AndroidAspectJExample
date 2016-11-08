@@ -20,6 +20,12 @@ android:
     - extra-android-m2repository
     - extra-android-support
 
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+  - $HOME/.gradle
+
 addons:
   artifacts:
     paths:
