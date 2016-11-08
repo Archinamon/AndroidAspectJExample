@@ -2,7 +2,7 @@ buildscript {
     ext.kotlin_version = '1.0.4'
 
     repositories {
-        mavenCentral()
+        jcenter()
         maven { url "https://jitpack.io" }
     }
     dependencies {
@@ -53,6 +53,8 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -91,7 +93,12 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.squareup.picasso:picasso:2.1.1'
     compile 'com.android.support:design:25.0.0'
+
     testCompile 'junit:junit:4.12'
+    androidTestCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test:runner:0.5') { exclude module: 'support-annotations' }
+    androidTestCompile('com.android.support.test:rules:0.5') { exclude module: 'support-annotations' }
+
     apt 'com.google.dagger:dagger-compiler:2.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 }
