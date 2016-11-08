@@ -6,8 +6,8 @@ env:
   matrix:
     - ANDROID_TARGET=android-24 ANDROID_ABI=armeabi-v7a
   global:
-    # wait up to 20 minutes for adb to connect to emulator
-    - ADB_INSTALL_TIMEOUT=2
+    # wait up to 30 minutes for adb to connect to emulator
+    - ADB_INSTALL_TIMEOUT=3
 
 android:
   components:
