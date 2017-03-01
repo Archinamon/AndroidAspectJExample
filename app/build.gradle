@@ -25,6 +25,7 @@ apply plugin: 'kotlin-android-extensions'
 
 aspectj {
     debugInfo !isTCBuild()
+    includeJar 'lib'
 }
 
 retrolambda {
@@ -101,6 +102,8 @@ dependencies {
 
     apt 'com.google.dagger:dagger-compiler:2.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    compile project(':lib')
 }
 
 def isTCBuild() {
