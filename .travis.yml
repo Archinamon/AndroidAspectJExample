@@ -6,8 +6,7 @@ env:
   matrix:
     - ANDROID_TARGET=android-24 ANDROID_ABI=armeabi-v7a
   global:
-    # wait up to 10 minutes for adb to connect to emulator
-    - ADB_INSTALL_TIMEOUT=1
+    - ADB_INSTALL_TIMEOUT=5
 
 android:
   components:
@@ -15,13 +14,18 @@ android:
     - tools
     - build-tools-25.0.0
     - android-24
+    - android-25
     - sys-img-armeabi-v7a-android-24
     - extra-android-m2repository
     - extra-android-support
 
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+cache:
+  directories:
+  - $HOME/.gradle
+
 addons:
-  apt_packages:
-    - pandoc
   artifacts:
     paths:
       - $(git ls-files -o | grep build/outputs | tr "\n" ":")
