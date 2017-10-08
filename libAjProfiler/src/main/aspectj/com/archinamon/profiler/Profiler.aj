@@ -1,4 +1,4 @@
-package com.archinamon.xpoint;
+package com.archinamon.profiler;
 
 import org.aspectj.lang.JoinPoint;
 import java.util.Map;

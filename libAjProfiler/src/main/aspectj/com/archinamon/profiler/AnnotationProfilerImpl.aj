@@ -1,76 +1,76 @@
-package com.archinamon.xpoint;
+package com.archinamon.profiler;
 
-import com.archinamon.example.profiler.ProfileCall;
-import com.archinamon.example.profiler.ProfileClass;
-import com.archinamon.example.profiler.ProfileDynamic;
-import com.archinamon.example.profiler.ProfileErrors;
-import com.archinamon.example.profiler.ProfileExecution;
-import com.archinamon.example.profiler.ProfileField;
-import com.archinamon.example.profiler.ProfileInstance;
-import com.archinamon.example.profiler.ProfileStatic;
+import com.archinamon.profiler.ProfileCall;
+import com.archinamon.profiler.ProfileClass;
+import com.archinamon.profiler.ProfileDynamic;
+import com.archinamon.profiler.ProfileErrors;
+import com.archinamon.profiler.ProfileExecution;
+import com.archinamon.profiler.ProfileField;
+import com.archinamon.profiler.ProfileInstance;
+import com.archinamon.profiler.ProfileStatic;
 
 /**
  * Created by archinamon on 13/02/16.
  */
-public aspect MyAnnoProfilerImpl extends AnnoProfiler {
+public aspect AnnotationProfilerImpl extends AnnotationProfiler {
 
     /* PROFILE ANNOTATED METHOD CALL */
 
-    before(ProfileCall pc): AnnoProfiler.profileTargetCall(pc) {
+    before(ProfileCall pc): AnnotationProfiler.profileTargetCall(pc) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileCall pc): AnnoProfiler.profileTargetCall(pc) {
+    after(ProfileCall pc): AnnotationProfiler.profileTargetCall(pc) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED METHOD'S BODY EXECUTION */
 
-    before(ProfileExecution pe): AnnoProfiler.profileTargetExecution(pe) {
+    before(ProfileExecution pe): AnnotationProfiler.profileTargetExecution(pe) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileExecution pe): AnnoProfiler.profileTargetExecution(pe) {
+    after(ProfileExecution pe): AnnotationProfiler.profileTargetExecution(pe) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' STATIC METHODS EXECUTION */
 
-    before(ProfileClass pc): AnnoProfiler.profileTargetClass(pc) {
+    before(ProfileClass pc): AnnotationProfiler.profileTargetClass(pc) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileClass pc): AnnoProfiler.profileTargetClass(pc) {
+    after(ProfileClass pc): AnnotationProfiler.profileTargetClass(pc) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' INSTANCE METHODS EXECUTION */
 
-    before(ProfileInstance pi): AnnoProfiler.profileTargetInstance(pi) {
+    before(ProfileInstance pi): AnnotationProfiler.profileTargetInstance(pi) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileInstance pi): AnnoProfiler.profileTargetInstance(pi) {
+    after(ProfileInstance pi): AnnotationProfiler.profileTargetInstance(pi) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' CONSTRUCTORS, SUPER-CALLS AND DYNAMIC BLOCKS */
 
-    before(ProfileDynamic dp): AnnoProfiler.profileTargetDynamic(dp) {
+    before(ProfileDynamic dp): AnnotationProfiler.profileTargetDynamic(dp) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileDynamic dp): AnnoProfiler.profileTargetDynamic(dp) {
+    after(ProfileDynamic dp): AnnotationProfiler.profileTargetDynamic(dp) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' STATIC BLOCKS */
 
-    before(ProfileStatic ps): AnnoProfiler.profileTargetStatic(ps) {
+    before(ProfileStatic ps): AnnotationProfiler.profileTargetStatic(ps) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileStatic ps): AnnoProfiler.profileTargetStatic(ps) {
+    after(ProfileStatic ps): AnnotationProfiler.profileTargetStatic(ps) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
@@ -78,17 +78,17 @@ public aspect MyAnnoProfilerImpl extends AnnoProfiler {
         SUCH CLASS SHOULD BE ANNOTATED AS @ProfileClass or @ProfileInstance
         THAT DEPENDS ON WHAT KIND OF FIELD YOU WANNA PROFILE */
 
-    before(ProfileField pf): AnnoProfiler.profileTargetField(pf) {
+    before(ProfileField pf): AnnotationProfiler.profileTargetField(pf) {
         writeEnterTime(thisJoinPointStaticPart);
     }
 
-    after(ProfileField pf): AnnoProfiler.profileTargetField(pf) {
+    after(ProfileField pf): AnnotationProfiler.profileTargetField(pf) {
         writeExitTime(thisJoinPointStaticPart);
     }
 
     /* PROFILE ANNOTATED CLASS' OR SEPARATELY MARKED METHODS WITH ERROR HANDLER */
 
-    Object around(ProfileErrors pe): AnnoProfiler.profileTargetErrors(pe) {
+    Object around(ProfileErrors pe): AnnotationProfiler.profileTargetErrors(pe) {
         try {
             writeEnterTime(thisJoinPointStaticPart);
             Object o = proceed(pe);

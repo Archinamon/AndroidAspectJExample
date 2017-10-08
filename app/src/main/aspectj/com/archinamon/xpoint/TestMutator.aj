@@ -1,8 +1,6 @@
 package com.archinamon.xpoint;
 
 /**
- * TODO: Add destription
- *
  * @author archinamon on 12/05/16.
  */
 privileged aspect TestMutator {

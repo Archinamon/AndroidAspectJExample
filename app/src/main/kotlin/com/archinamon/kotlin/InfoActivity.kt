@@ -3,11 +3,11 @@ package com.archinamon.kotlin
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import com.archinamon.example.R
-import com.archinamon.example.profiler.ProfileDynamic
+import com.archinamon.profiler.ProfileDynamic
 
 @ProfileDynamic
 class InfoActivity : AppCompatActivity() {
@@ -28,4 +28,11 @@ class InfoActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+
+        return true
+    }
 }

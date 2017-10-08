@@ -1,13 +1,13 @@
-package com.archinamon.xpoint;
+package com.archinamon.profiler;
 
-import com.archinamon.example.profiler.ProfileCall;
-import com.archinamon.example.profiler.ProfileClass;
-import com.archinamon.example.profiler.ProfileDynamic;
-import com.archinamon.example.profiler.ProfileErrors;
-import com.archinamon.example.profiler.ProfileExecution;
-import com.archinamon.example.profiler.ProfileField;
-import com.archinamon.example.profiler.ProfileInstance;
-import com.archinamon.example.profiler.ProfileStatic;
+import com.archinamon.profiler.ProfileCall;
+import com.archinamon.profiler.ProfileClass;
+import com.archinamon.profiler.ProfileDynamic;
+import com.archinamon.profiler.ProfileErrors;
+import com.archinamon.profiler.ProfileExecution;
+import com.archinamon.profiler.ProfileField;
+import com.archinamon.profiler.ProfileInstance;
+import com.archinamon.profiler.ProfileStatic;
 import org.aspectj.lang.JoinPoint;
 import java.util.Arrays;
 import java.util.Map;
@@ -18,11 +18,11 @@ import static java.lang.System.out;
 /**
  * Created by archinamon on 13/02/16.
  */
-abstract aspect AnnoProfiler {
+abstract aspect AnnotationProfiler {
 
     // this line declares execution order according to advice execution rules
     // this aspect should run over all others
-    declare precedence: AnnoProfiler+, *;
+    declare precedence: AnnotationProfiler+, *;
 
     // collect joinpoints only if defined annotations on object type is set
     private pointcut fieldOwner(): (within(@ProfileInstance *) || within(@ProfileClass *));

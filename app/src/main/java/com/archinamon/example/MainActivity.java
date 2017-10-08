@@ -1,5 +1,6 @@
 package com.archinamon.example;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import org.androidannotations.annotations.EActivity;
 import java.util.Locale;
 
 @EActivity
+@SuppressLint("Registered")
 public class MainActivity extends AppCompatActivity {
 
     private TextView mHelloField;
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onSecondButtonClicked(View view) {
-        toastFromGroovy();
+        toastFromAspectJ();
     }
 
     public void onThirdButtonClicked(View view) {
@@ -82,9 +84,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toastFromJava() {
-        Toast.makeText(this, getString(R.string.something_happend_java), Toast.LENGTH_LONG).show();
+        String msg = getString(R.string.something_happend_java);
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
-    private void toastFromGroovy() {}
+    private void toastFromAspectJ() {}
     private void toastFromKotlin() {}
 }

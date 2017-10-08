@@ -8,7 +8,7 @@
     <string name="second_btn">Button 2</string>
     <string name="third_btn">Button 3</string>
     <string name="something_happend_java">Click action from Java!</string>
-    <string name="something_happend_groovy">Click action from Groovy!</string>
+    <string name="something_happend_aspectj">Click action from AspectJ!</string>
     <string name="something_happend_kotlin">Click action from Kotlin!</string>
     <string name="title_activity_info">InfoActivity</string>
 
@@ -17,9 +17,9 @@
 \nFull support of Android product flavors and custom variable build types.
 \nAlso supports Kotlin, Groovy, Scala and any other languages that compiles into java bytecode.
 \n
-\nActual version: com.archinamon:android-gradle-aspectj:2.2.2.
+\nActual version: com.archinamon:android-gradle-aspectj:3.0.3.
 \nIt was completely re-written with brand new Transform API!
 \n
-\nCurrent demo project uses Java, Kotlin, Groovy and AspectJ together.
+\nCurrent demo project uses Java, Kotlin and AspectJ together.
 \nAlso Retrolambda, Dagger2 and AndroidAnnotations are in use to grant full compatibility of this plugin with all useful and needed tools! :)</string>
 </resources>

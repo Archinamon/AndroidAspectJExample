@@ -2,14 +2,10 @@ package com.archinamon.example;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-
 import com.archinamon.example.dagger.AndroidAppModule;
 import com.archinamon.example.dagger.DaggerTestComponent;
 import com.archinamon.example.dagger.MyAppScopeModule;
 import com.archinamon.example.dagger.TestComponent;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static com.archinamon.example.BuildConfig.APPLICATION_ID;
 

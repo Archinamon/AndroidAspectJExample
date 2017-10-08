@@ -1,65 +1,87 @@
 buildscript {
-    ext.kotlin_version = '1.0.4'
+    ext.kotlin_version = '1.1.51'
 
     repositories {
         jcenter()
-        maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.github.Archinamon:GradleAspectJ-Android:2.2.2'
-        classpath 'me.tatarka:gradle-retrolambda:3.3.1'
-        //APT
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         //Kotlin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        //APT
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'groovyx.grooid.groovy-android'
-apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.archinamon.aspectj'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.archinamon.aspectj'
 
 aspectj {
     debugInfo !isTCBuild()
+    includeAspectsFromJar 'libinstantparcelable'
 }
 
 retrolambda {
     defaultMethods true
 }
 
-androidGroovy {
-    sourceCompatibility = '1.7'
-    targetCompatibility = '1.7'
-}
-
 apt {
     arguments {
         resourcePackageName android.defaultConfig.applicationId
-        androidManifestFile variant.outputs[0].processResources.manifestFile
+        androidManifestFile variant.outputs[0]?.processResources?.manifestFile
     }
 }
 
+def rootApplicationId = rootProject.ext.applicationId
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
-        applicationId "com.archinamon.example"
+        applicationId rootApplicationId
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+
+        multiDexEnabled true
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        dev {
+            multiDexEnabled false
+            applicationId "${rootApplicationId}.dev"
+            versionName "1.7.2_(PRJT-2165)"
+            minSdkVersion 21
+            project.archivesBaseName = "myProject_$versionCode-$versionName"
+            buildConfigField "boolean", "DEEP_LOG", "true"
+            buildConfigField "boolean", "METRICS", "false"
+        }
+
+        prod {
+            buildConfigField "boolean", "DEEP_LOG", "false"
+            buildConfigField "boolean", "METRICS", "true"
+        }
+
+        regress {
+            applicationId "${rootApplicationId}.regress"
+            buildConfigField "boolean", "DEEP_LOG", "true"
+            buildConfigField "boolean", "METRICS", "true"
         }
     }
 
@@ -74,35 +96,37 @@ android {
 }
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
 def AAVersion = '3.3' as String
 dependencies {
+    compile project(':libExample')
+    compile project(':libAjProfiler')
+    compile 'com.github.Archinamon:InstantParcelable:1.0.0'
+
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
 
-    compile 'org.codehaus.groovy:groovy:2.4.5:grooid'
+    compile 'com.annimon:stream:1.1.4'
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.1'
-    compile 'com.google.dagger:dagger:2.0'
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.squareup.picasso:picasso:2.1.1'
-    compile 'com.android.support:design:25.0.0'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:1.1.51'
+    compile 'com.google.dagger:dagger:2.11'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:design:25.3.1'
 
     testCompile 'junit:junit:4.12'
     androidTestCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test:runner:0.5') { exclude module: 'support-annotations' }
     androidTestCompile('com.android.support.test:rules:0.5') { exclude module: 'support-annotations' }
 
-    apt 'com.google.dagger:dagger-compiler:2.0'
+    apt 'com.google.dagger:dagger-compiler:2.11'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 }
 
 def isTCBuild() {
-    return project.properties.containsKey('teamcity');
+    return project.properties.containsKey('teamcity')
 }

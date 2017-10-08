@@ -1,11 +1,11 @@
-package com.archinamon.xpoint;
+package com.archinamon.profiler;
 
 /**
  * Created by Archinamon on 10/18/15.
  */
-aspect MyProfilerImpl extends Profiler {
+aspect ProfilerImpl extends Profiler {
 
-    private pointcut strict(): within(com.archinamon.example.*) && !within(*.xpoint.*);
+    private pointcut strict(): within(com.archinamon.**) && !within(*.profiler.**);
 
     pointcut innerExecution(): strict() && execution(!public !static * *(..));
     pointcut constructorCall(): strict() && call(*.new(..));
