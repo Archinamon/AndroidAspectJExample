@@ -1,4 +1,4 @@
-package com.archinamon.profiler;
+package com.archinamon.profiler.core;
 
 /**
  * Created by Archinamon on 10/18/15.

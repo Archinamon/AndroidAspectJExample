@@ -1,4 +1,4 @@
-package com.archinamon.profiler;
+package com.archinamon.profiler.annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

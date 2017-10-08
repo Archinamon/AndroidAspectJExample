@@ -1,13 +1,13 @@
-package com.archinamon.profiler;
+package com.archinamon.profiler.core;
 
-import com.archinamon.profiler.ProfileCall;
-import com.archinamon.profiler.ProfileClass;
-import com.archinamon.profiler.ProfileDynamic;
-import com.archinamon.profiler.ProfileErrors;
-import com.archinamon.profiler.ProfileExecution;
-import com.archinamon.profiler.ProfileField;
-import com.archinamon.profiler.ProfileInstance;
-import com.archinamon.profiler.ProfileStatic;
+import com.archinamon.profiler.annotation.ProfileCall;
+import com.archinamon.profiler.annotation.ProfileClass;
+import com.archinamon.profiler.annotation.ProfileDynamic;
+import com.archinamon.profiler.annotation.ProfileErrors;
+import com.archinamon.profiler.annotation.ProfileExecution;
+import com.archinamon.profiler.annotation.ProfileField;
+import com.archinamon.profiler.annotation.ProfileInstance;
+import com.archinamon.profiler.annotation.ProfileStatic;
 
 /**
  * Created by archinamon on 13/02/16.

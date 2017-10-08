@@ -5,7 +5,7 @@ Supports demostration
 ------
 * Tests coverage by AspectJ code
 * Working with Dagger2, AndroidAnnotations
-* Kotlin/Groovy coverage by AspectJ code
+* Kotlin coverage by AspectJ code (Groovy/Scala also possible, but excluded for simplicity)
 * Aj plugin extension parameters
 
 Useful links that helps better understands the AspectJ language and some common tips, examples:

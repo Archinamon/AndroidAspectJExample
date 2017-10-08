@@ -21,7 +21,7 @@ apply plugin: 'com.archinamon.aspectj'
 
 aspectj {
     debugInfo !isTCBuild()
-    includeAspectsFromJar 'libinstantparcelable'
+    includeAspectsFromJar 'libinstantparcelable', 'libAjProfiler'
 }
 
 retrolambda {

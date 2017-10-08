@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.archinamon.example.R
-import com.archinamon.profiler.ProfileDynamic
+import com.archinamon.profiler.annotation.ProfileDynamic
+import com.archinamon.profiler.annotation.ProfileInstance
 
 @ProfileDynamic
+@ProfileInstance
 class InfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +21,7 @@ class InfoActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val fab = findViewById(R.id.fab)
-        fab?.setOnClickListener { view ->
+        fab?.setOnClickListener {
             val uri = "mailto:archinamon@gmail.com" +
                 "?subject=" + Uri.encode("Example project feedback")
             val intent = Intent(Intent.ACTION_SENDTO).setData(Uri.parse(uri))

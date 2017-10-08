@@ -1,19 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.aspectj_version = "3.0.2"
+    ext.aspectj_version = "3.0.3"
 
     repositories {
         jcenter()
-        maven {
-            name = 'github'
-            url 'https://jitpack.io'
-        }
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.2'
         classpath 'org.codehaus.groovy:groovy-android-gradle-plugin:1.2.0'
-        classpath "com.github.Archinamon:GradleAspectJ-Android:$aspectj_version"
+        classpath "com.archinamon:android-gradle-aspectj:$aspectj_version"
         classpath 'me.tatarka:gradle-retrolambda:3.6.0'
     }
 }
@@ -21,6 +18,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
         maven {
             name = 'github'
             url 'https://jitpack.io'

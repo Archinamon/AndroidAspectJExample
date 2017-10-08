@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.archinamon.aspectj'
+apply plugin: 'com.archinamon.aspectj-provides'
 
 android {
     compileSdkVersion 26

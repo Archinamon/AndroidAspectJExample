@@ -1,4 +1,4 @@
-package com.archinamon.profiler;
+package com.archinamon.profiler.core;
 
 import org.aspectj.lang.JoinPoint;
 import java.util.Map;
